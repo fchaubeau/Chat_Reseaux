@@ -45,13 +45,13 @@ public class EchoClient {
                                + "the connection to:"+ args[0]);
             System.exit(1);
         }
-                             
+        ClientThread ct = new ClientThread(echoSocket);
+        ct.start();                 
         String line;
         while (true) {
         	line=stdIn.readLine();
         	if (line.equals(".")) break;
         	socOut.println(line);
-        	System.out.println("echo: " + socIn.readLine());
         }
       socOut.close();
       socIn.close();

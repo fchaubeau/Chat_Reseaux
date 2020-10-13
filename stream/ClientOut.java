@@ -1,21 +1,14 @@
-/***
- * ClientThread
- * Example of a TCP server
- * Date: 14/12/08
- * Authors:
- */
-
 package Chat_Reseaux.stream;
 
 import java.io.*;
 import java.net.*;
 
-public class ClientThread
+public class ClientOut
 	extends Thread {
 	
 	private Socket clientSocket;
 	
-	ClientThread(Socket s) {
+	ClientOut(Socket s) {
 		this.clientSocket = s;
 	}
 
@@ -25,13 +18,12 @@ public class ClientThread
   	**/
 	public void run() {
     	  try {
-			BufferedReader socIn = null;
-    		socIn = new BufferedReader(
-    			new InputStreamReader(clientSocket.getInputStream()));    
+            BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
 			PrintStream socOut = new PrintStream(clientSocket.getOutputStream());
-    		while (true) {
-    		  	String line = socIn.readLine();
-          		System.out.println(line);
+            String line;
+            while (true) {
+    		  	line = stdIn.readLine();
+          		socOut.println(line);
     		}
     	} catch (Exception e) {
         	System.err.println("Error in EchoServer:" + e); 
