@@ -34,6 +34,7 @@ public class EchoServerMultiThreaded  {
 		}
         } catch (Exception e) {
             System.err.println("Error in EchoServer:" + e);
-        }
+		}
+		
       }
   }
