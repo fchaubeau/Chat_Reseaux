@@ -31,9 +31,11 @@ public class ClientThread
     		PrintStream socOut = new PrintStream(clientSocket.getOutputStream());
     		while (true) {
     		  String line = socIn.readLine();
-          socOut.println(line);
-          System.out.println(line);
-    		}
+          	  socOut.println(line);
+              System.out.println(line);
+			}
+        	System.out.println("echo: " + socIn.readLine());
+        }
     	} catch (Exception e) {
         	System.err.println("Error in EchoServer:" + e); 
         }
