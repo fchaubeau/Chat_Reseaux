@@ -5,7 +5,7 @@
  * Authors:
  */
 
-package stream;
+package Chat_Reseaux.stream;
 
 import java.io.*;
 import java.net.*;
