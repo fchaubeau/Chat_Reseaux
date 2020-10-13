@@ -9,7 +9,6 @@ package Chat_Reseaux.stream;
 
 import java.io.*;
 import java.net.*;
-import java.util.*;
 
 public class ClientThread
 	extends Thread {
@@ -23,13 +22,13 @@ public class ClientThread
  	/**
   	* receives a request from client then sends an echo to the client
   	* @param clientSocket the client socket
-  	**/
+	  **/
+	@Override
 	public void run() {
     	  try {
 			BufferedReader socIn = null;
     		socIn = new BufferedReader(
     			new InputStreamReader(clientSocket.getInputStream()));    
-			PrintStream socOut = new PrintStream(clientSocket.getOutputStream());
     		while (true) {
 				String line = socIn.readLine();
           		System.out.println(line);
