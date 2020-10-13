@@ -9,6 +9,7 @@ package Chat_Reseaux.stream;
 
 import java.io.*;
 import java.net.*;
+import java.util.*;
 
 public class ClientThread
 	extends Thread {
@@ -30,7 +31,7 @@ public class ClientThread
     			new InputStreamReader(clientSocket.getInputStream()));    
 			PrintStream socOut = new PrintStream(clientSocket.getOutputStream());
     		while (true) {
-    		  	String line = socIn.readLine();
+				String line = socIn.readLine();
           		System.out.println(line);
     		}
     	} catch (Exception e) {

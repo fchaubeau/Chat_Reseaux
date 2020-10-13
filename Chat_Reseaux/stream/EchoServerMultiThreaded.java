@@ -8,6 +8,7 @@ package Chat_Reseaux.stream;
 
 import java.io.*;
 import java.net.*;
+import java.util.*;
 
 public class EchoServerMultiThreaded  {
   
@@ -25,13 +26,17 @@ public class EchoServerMultiThreaded  {
   	}
 	try {
 		listenSocket = new ServerSocket(Integer.parseInt(args[0])); //port
+		List<Socket> listeclient = Collections.synchronizedList(new ArrayList<Socket>());
 		System.out.println("Server ready..."); 
 		while (true) {
 			Socket clientSocket = listenSocket.accept();
+			listeclient.add(clientSocket);
 			System.out.println("Connexion from:" + clientSocket.getInetAddress());
+			/*
 			ClientThread ct = new ClientThread(clientSocket);
 			ct.start();
-			ClientOut co = new ClientOut(clientSocket);
+			*/
+			ClientOut co = new ClientOut(clientSocket, listeclient);
 			co.start();
 		}
         } catch (Exception e) {
