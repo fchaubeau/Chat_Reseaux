@@ -25,12 +25,13 @@ public class EchoServerMultiThreaded {
 		}
 		try (ServerSocket listenSocket = new ServerSocket(Integer.parseInt(args[0]));) {
 			List<Socket> listeclient = Collections.synchronizedList(new ArrayList<Socket>());
+			List<Message> listeMessage = Collections.synchronizedList(new ArrayList<Message>());
 			System.out.println("Server ready...");
 			while (true) {
 				Socket clientSocket = listenSocket.accept();
 				listeclient.add(clientSocket);
 				System.out.println("Connexion from:" + clientSocket.getInetAddress());
-				ClientOut co = new ClientOut(clientSocket, listeclient);
+				ClientOut co = new ClientOut(clientSocket, listeclient, listeMessage);
 				co.start();
 			}
 		} catch (Exception e) {
