@@ -6,11 +6,18 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - EchoServerMultiThreaded",
+            "request": "launch",
+            "mainClass": "Chate_Reseaux.stream.EchoServerMultiThreaded",
+            "projectName": "Chat_Reseaux_9cba351"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - EchoClient",
             "request": "launch",
             "mainClass": "Chat_Reseaux.stream.EchoClient",
             "projectName": "Chat_Reseaux_9cba351",
-            "args" : "localhost 8080"
+            "args": "localhost 8080"
         },
         {
             "type": "java",
@@ -18,7 +25,7 @@
             "request": "launch",
             "mainClass": "Chat_Reseaux.stream.EchoServerMultiThreaded",
             "projectName": "Chat_Reseaux_9cba351",
-            "args" : "8080"
+            "args": "8080"
         },
         {
             "type": "java",
