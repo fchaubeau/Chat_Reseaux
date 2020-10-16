@@ -33,9 +33,9 @@ public class ClientOut extends Thread {
         try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("logs.txt"));) {
             objectOutputStream.writeObject(message);
             objectOutputStream.flush();
-            } catch (Exception e) {
-                System.err.println("Erreur lors de la sérialisation des messages : " + e);
-            }
+        } catch (Exception e) {
+            System.err.println("Erreur lors de la sérialisation des messages : " + e);
+        }
     }
 
     @Override
@@ -47,22 +47,27 @@ public class ClientOut extends Thread {
             for (Message m : message) {
                 socOut.println(m);
             }
+            synchronized (liste) {
+                liste.add(clientSocket);
+            }
             broadcast(new Message(name, true), true);
-            while (!clientSocket.isClosed()) {
-                broadcast(new Message(name, socIn.readLine()));
+            String lecture;
+            while ((lecture = socIn.readLine()) != null) {
+                broadcast(new Message(name, lecture));
             }
         } catch (Exception e) {
             System.err.println("Error in EchoServer:" + e);
-            
-        }
-        synchronized (liste) {
-        liste.remove(clientSocket);
-        }
-        try {
-            broadcast(new Message(name, false));
-            System.out.println("fin du thread de " + name);
-        } catch (Exception e) {
-            System.err.println(e);
+
+        } finally {
+            synchronized (liste) {
+                liste.remove(clientSocket);
+            }
+            try {
+                clientSocket.close();
+                broadcast(new Message(name, false));
+            } catch (Exception e) {
+                System.err.println(e);
+            }
         }
     }
 }

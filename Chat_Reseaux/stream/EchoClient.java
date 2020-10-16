@@ -34,6 +34,7 @@ public class EchoClient {
       socOut.println(name);
       ct.start();
       String line;
+
       while (true) {
         line = stdIn.readLine();
         if (line.equals("."))

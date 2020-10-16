@@ -33,7 +33,6 @@ public class EchoServerMultiThreaded {
 			System.out.println("Server ready...");
 			while (true) {
 				Socket clientSocket = listenSocket.accept();
-				listeclient.add(clientSocket);
 				System.out.println("Connexion from:" + clientSocket.getInetAddress());
 				ClientOut co = new ClientOut(clientSocket, listeclient, listeMessage);
 				co.start();
