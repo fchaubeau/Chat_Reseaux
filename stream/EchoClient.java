@@ -21,35 +21,6 @@ public class EchoClient {
       System.exit(1);
     }
 
-<<<<<<< HEAD:stream/EchoClient.java
-        try {
-      	    // creation socket ==> connexion
-      	    echoSocket = new Socket(args[0],new Integer(args[1]).intValue());
-	          socIn = new BufferedReader(
-	    		          new InputStreamReader(echoSocket.getInputStream()));    
-	          socOut= new PrintStream(echoSocket.getOutputStream());
-	          stdIn = new BufferedReader(new InputStreamReader(System.in));
-        } catch (UnknownHostException e) {
-            System.err.println("Don't know about host:" + args[0]);
-            System.exit(1);
-        } catch (IOException e) {
-            System.err.println("Couldn't get I/O for "
-                               + "the connection to:"+ args[0]);
-            System.exit(1);
-        }
-        ClientThread ct = new ClientThread(echoSocket);
-        ct.start();                 
-        String line;
-        while (true) {
-        	line=stdIn.readLine();
-        	if (line.equals(".")) break;
-        	socOut.println(line);
-        }
-      socOut.close();
-      socIn.close();
-      stdIn.close();
-      echoSocket.close();
-=======
     try (Socket echoSocket = new Socket(args[0], Integer.parseInt(args[1]));
         BufferedReader socIn = new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));
         PrintStream socOut = new PrintStream(echoSocket.getOutputStream());
@@ -76,7 +47,6 @@ public class EchoClient {
     } catch (IOException e) {
       System.err.println("Couldn't get I/O for " + "the connection to:" + args[0]);
       System.exit(1);
->>>>>>> 59d058a26e8ae30f7c90228fae2bc04ac889c966:Chat_Reseaux/stream/EchoClient.java
     }
   }
 }

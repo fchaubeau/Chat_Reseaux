@@ -40,14 +40,5 @@ public class EchoServerMultiThreaded {
 		} catch (Exception e) {
 			System.err.println("Error in EchoServer:" + e);
 		}
-<<<<<<< HEAD:stream/EchoServerMultiThreaded.java
-        } catch (Exception e) {
-            System.err.println("Error in EchoServer:" + e);
-		}
-		
-      }
-  }
-=======
 	}
 }
->>>>>>> 59d058a26e8ae30f7c90228fae2bc04ac889c966:Chat_Reseaux/stream/EchoServerMultiThreaded.java
