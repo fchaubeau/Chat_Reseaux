@@ -23,7 +23,7 @@ public class EchoServerMultiThreaded {
 			System.out.println("Usage: java EchoServer <EchoServer port>");
 			System.exit(1);
 		}
-		try (ServerSocket listenSocket = new ServerSocket(Integer.parseInt(args[0]));) {
+		try (DatagramSocket listenSocket = new DatagramSocket(Integer.parseInt(args[0]));) {
 			List<Socket> listeclient = Collections.synchronizedList(new ArrayList<Socket>());
 			List<Message> listeMessage = Collections.synchronizedList(new ArrayList<Message>());
 			System.out.println("Server ready...");

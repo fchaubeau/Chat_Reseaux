@@ -6,11 +6,11 @@ import java.util.*;
 
 public class ClientOut extends Thread {
 
-    private Socket clientSocket;
-    private List<Socket> liste;
+    private DatagramSocket clientSocket;
+    private List<DatagramSocket> liste;
     private List<Message> message;
 
-    ClientOut(Socket s, List<Socket> listeclient, List<Message> listeMessage) {
+    ClientOut(DatagramSocket s, List<DatagramSocket> listeclient, List<Message> listeMessage) {
         this.clientSocket = s;
         this.liste = listeclient;
         this.message = listeMessage;
@@ -22,7 +22,7 @@ public class ClientOut extends Thread {
 
     private void broadcast(Message m, boolean sendToSender) throws IOException {
         synchronized (liste) {
-            for (Socket so : liste) {
+            for (DatagramSocket so : liste) {
                 if (sendToSender || so != clientSocket)
                     new PrintStream(so.getOutputStream()).println(m);
             }

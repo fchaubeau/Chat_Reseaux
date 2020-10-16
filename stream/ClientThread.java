@@ -9,13 +9,16 @@ package Chat_Reseaux.stream;
 
 import java.io.*;
 import java.net.*;
+import java.util.*;
 
 public class ClientThread extends Thread {
 
-	private Socket clientSocket;
+	private MulticastSocket groupSocket;
+	private InetAddress groupAddress;
 
-	ClientThread(Socket s) {
-		this.clientSocket = s;
+	ClientThread(MulticastSocket s, InetAddress groupAddress) {
+		this.groupSocket = s;
+		this.groupAddress = groupAddress;
 	}
 
 	/**
@@ -26,11 +29,12 @@ public class ClientThread extends Thread {
 	@Override
 	public void run() {
 		try {
-			BufferedReader socIn = null;
-			socIn = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+			//groupSocket.joinGroup(groupAddress);
 			while (true) {
-				String line = socIn.readLine();
-				System.out.println(line);
+				byte [] buffer = new byte[256];
+				DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
+				groupSocket.receive(packet);
+				System.out.println(new String(buffer));
 			}
 		} catch (Exception e) {
 			System.err.println("Error in EchoServer:" + e);
