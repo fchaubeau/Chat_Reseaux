@@ -15,7 +15,7 @@ public class ClientOut extends Thread {
         this.liste = listeclient;
         this.message = listeMessage;
     }
-    
+
     private void broadcast(Message m) throws IOException {
         broadcast(m, false);
     }
@@ -30,30 +30,39 @@ public class ClientOut extends Thread {
         synchronized (message) {
             message.add(m);
         }
+        try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("logs.txt"));) {
+            objectOutputStream.writeObject(message);
+            objectOutputStream.flush();
+            } catch (Exception e) {
+                System.err.println("Erreur lors de la sérialisation des messages : " + e);
+            }
     }
 
     @Override
     public void run() {
         String name = "";
         try (BufferedReader socIn = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-        PrintStream socOut = new PrintStream(clientSocket.getOutputStream());) {
+                PrintStream socOut = new PrintStream(clientSocket.getOutputStream());) {
             name = socIn.readLine();
             for (Message m : message) {
                 socOut.println(m);
             }
             broadcast(new Message(name, true), true);
-            while (true) {
+            while (!clientSocket.isClosed()) {
                 broadcast(new Message(name, socIn.readLine()));
             }
         } catch (Exception e) {
             System.err.println("Error in EchoServer:" + e);
-        } finally {
-            liste.remove(clientSocket);
-            try {
+            
+        }
+        synchronized (liste) {
+        liste.remove(clientSocket);
+        }
+        try {
             broadcast(new Message(name, false));
-            } catch (Exception e) {
-                System.err.println(e);
-            }
+            System.out.println("fin du thread de " + name);
+        } catch (Exception e) {
+            System.err.println(e);
         }
     }
 }

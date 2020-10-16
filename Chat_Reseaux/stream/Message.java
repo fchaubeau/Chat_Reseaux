@@ -1,6 +1,9 @@
 package Chat_Reseaux.stream;
 
-public class Message {
+import java.io.Serializable;
+
+public class Message implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String content;
     private String sender;
     boolean connexion = false;
